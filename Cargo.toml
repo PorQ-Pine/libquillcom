@@ -1,0 +1,9 @@
+[package]
+name = "libquillcom"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0.99"
+log = "0.4.28"
+serde = { version = "1.0.225", features = ["serde_derive"] }
