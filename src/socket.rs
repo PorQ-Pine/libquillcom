@@ -10,6 +10,12 @@ pub struct ErrorDetails {
     pub error_reason: String,
 }
 
+#[derive(Serialize, Deserialize)]
+pub struct LoginForm {
+    pub username: String,
+    pub password: String,
+}
+
 pub fn bind(path: &str) -> Result<UnixListener> {
     info!("Binding or creating UNIX socket at path '{}'", &path);
     if fs::exists(&path)? {
