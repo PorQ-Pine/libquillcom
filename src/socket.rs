@@ -11,16 +11,20 @@ pub struct ErrorDetails {
 }
 
 #[derive(Serialize, Deserialize)]
-pub enum Command {
+pub enum CommandToQinit {
     GetLoginCredentials,
     StopListening,
+}
+
+#[derive(Serialize, Deserialize, Clone)]
+pub enum AnswerFromQinit {
+    Login(Option<LoginForm>),
 }
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct LoginForm {
     pub username: String,
     pub password: String,
-    pub assumed_valid: bool,
 }
 
 pub fn bind(path: &str) -> Result<UnixListener> {
@@ -35,7 +39,7 @@ pub fn bind(path: &str) -> Result<UnixListener> {
     Ok(unix_listener)
 }
 
-pub fn read(unix_listener: UnixListener) -> Result<Vec<u8>> {
+pub fn read(unix_listener: &UnixListener) -> Result<Vec<u8>> {
     info!("Listening on UNIX socket at {:?}", &unix_listener);
     let (unix_stream, _socket_address) = unix_listener
         .accept()
