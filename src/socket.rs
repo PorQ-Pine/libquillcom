@@ -40,12 +40,12 @@ pub fn read(unix_listener: UnixListener) -> Result<Vec<u8>> {
     let (unix_stream, _socket_address) = unix_listener
         .accept()
         .with_context(|| "Failed to accept connection on UNIX socket")?;
-    let message_bytes = read_from_stream(unix_stream)?;
+    let message_bytes = read_from_stream(&unix_stream)?;
 
     Ok(message_bytes)
 }
 
-pub fn read_from_stream(mut stream: UnixStream) -> Result<Vec<u8>> {
+pub fn read_from_stream(mut stream: &UnixStream) -> Result<Vec<u8>> {
     let mut message_bytes = Vec::new();
     stream
         .read_to_end(&mut message_bytes)
@@ -54,11 +54,17 @@ pub fn read_from_stream(mut stream: UnixStream) -> Result<Vec<u8>> {
     Ok(message_bytes)
 }
 
-pub fn write(path: &str, contents: &Vec<u8>) -> Result<()> {
+pub fn write(path: &str, contents: &Vec<u8>) -> Result<UnixStream> {
     info!("Writing {:?} to UNIX socket at path '{}'", &contents, &path);
-    connect(&path)?.write(&contents)?;
+    let mut stream = connect(&path)?;
+    stream.write_all(&contents)?;
+    stream.shutdown(std::net::Shutdown::Write)?;
 
-    Ok(())
+    Ok(stream)
+}
+
+pub fn write_and_read(path: &str, contents: &Vec<u8>) -> Result<Vec<u8>> {
+    Ok(read_from_stream(&write(&path, &contents)?)?)
 }
 
 pub fn connect(path: &str) -> Result<UnixStream> {
