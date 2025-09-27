@@ -11,6 +11,12 @@ pub struct ErrorDetails {
 }
 
 #[derive(Serialize, Deserialize)]
+pub enum Command {
+    GetLoginCredentials,
+    StopListening,
+}
+
+#[derive(Serialize, Deserialize)]
 pub struct LoginForm {
     pub username: String,
     pub password: String,
