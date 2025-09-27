@@ -16,7 +16,7 @@ pub enum Command {
     StopListening,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct LoginForm {
     pub username: String,
     pub password: String,
