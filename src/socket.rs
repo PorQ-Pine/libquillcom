@@ -37,11 +37,17 @@ pub fn bind(path: &str) -> Result<UnixListener> {
 
 pub fn read(unix_listener: UnixListener) -> Result<Vec<u8>> {
     info!("Listening on UNIX socket at {:?}", &unix_listener);
-    let (mut unix_stream, _socket_address) = unix_listener
+    let (unix_stream, _socket_address) = unix_listener
         .accept()
         .with_context(|| "Failed to accept connection on UNIX socket")?;
+    let message_bytes = read_from_stream(unix_stream)?;
+
+    Ok(message_bytes)
+}
+
+pub fn read_from_stream(mut stream: UnixStream) -> Result<Vec<u8>> {
     let mut message_bytes = Vec::new();
-    unix_stream
+    stream
         .read_to_end(&mut message_bytes)
         .with_context(|| "Failed to read from UNIX socket")?;
 
