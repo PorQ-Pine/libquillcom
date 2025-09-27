@@ -20,6 +20,7 @@ pub enum Command {
 pub struct LoginForm {
     pub username: String,
     pub password: String,
+    pub assumed_valid: bool,
 }
 
 pub fn bind(path: &str) -> Result<UnixListener> {
