@@ -21,7 +21,7 @@ pub enum AnswerFromQinit {
     Login(Option<LoginForm>),
 }
 
-#[derive(Serialize, Deserialize, Clone)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct LoginForm {
     pub username: String,
     pub password: String,
