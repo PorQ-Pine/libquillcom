@@ -14,6 +14,7 @@ pub struct ErrorDetails {
 pub enum CommandToQinit {
     GetLoginCredentials,
     StopListening,
+    TriggerSplash(Splash),
 }
 
 #[derive(Serialize, Deserialize, Clone)]
@@ -25,6 +26,13 @@ pub enum AnswerFromQinit {
 pub struct LoginForm {
     pub username: String,
     pub password: String,
+}
+
+#[derive(Serialize, Deserialize)]
+pub enum Splash {
+    PowerOff,
+    Reboot,
+    Sleep,
 }
 
 pub fn bind(path: &str) -> Result<UnixListener> {
