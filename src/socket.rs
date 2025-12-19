@@ -14,7 +14,7 @@ pub struct ErrorDetails {
 pub enum CommandToQinit {
     GetLoginCredentials,
     StopListening,
-    TriggerSplash(Splash),
+    TriggerSplash(PrimitiveShutDownType),
 }
 
 #[derive(Serialize, Deserialize, Clone)]
@@ -28,8 +28,8 @@ pub struct LoginForm {
     pub password: String,
 }
 
-#[derive(Serialize, Deserialize)]
-pub enum Splash {
+#[derive(Serialize, Deserialize, Debug)]
+pub enum PrimitiveShutDownType {
     PowerOff,
     Reboot,
     Sleep,
