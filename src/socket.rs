@@ -29,7 +29,7 @@ pub struct LoginForm {
     pub password: String,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq)]
 pub enum PrimitiveShutDownType {
     PowerOff,
     Reboot,
