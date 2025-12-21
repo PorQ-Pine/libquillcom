@@ -10,26 +10,26 @@ pub struct ErrorDetails {
     pub error_reason: String,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 pub enum CommandToQinit {
     GetLoginCredentials,
     StopListening,
     TriggerSplash(PrimitiveShutDownType),
 }
 
-#[derive(Serialize, Deserialize, Clone)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 pub enum AnswerFromQinit {
     Login(Option<LoginForm>),
     SplashReady,
 }
 
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 pub struct LoginForm {
     pub username: String,
     pub password: String,
 }
 
-#[derive(Serialize, Deserialize, Debug, PartialEq)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 pub enum PrimitiveShutDownType {
     PowerOff,
     Reboot,
