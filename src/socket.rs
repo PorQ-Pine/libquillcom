@@ -21,6 +21,7 @@ pub enum CommandToQinit {
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 pub enum AnswerFromQinit {
     Login(Option<LoginForm>),
+    LoginPageReady,
     SplashReady,
 }
 
