@@ -15,6 +15,7 @@ pub enum CommandToQinit {
     GetLoginCredentials,
     StopListening,
     TriggerSplash(PrimitiveShutDownType),
+    TriggerSwitchToLoginPage,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
